@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Resource {
+  id        String   @id @default(uuid())
+  type      String   // wood | stone | food | water | rare
+  amount    Int      @default(1)
+  // position stored as PostGIS geography — use raw SQL for geo queries
+  createdAt DateTime @default(now())
+}
+
+model Player {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  createdAt DateTime @default(now())
+}
